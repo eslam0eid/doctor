@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="view_hospital_patient_tree" model="ir.ui.view">
+        <field name="name">hospital.patient.tree</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <tree>
+
+                <field name="sequence"></field>
+                <field name="name" string="patient name"></field>
+                <field name="age" avg="average age"></field>
+                <field name="gender"></field>
+                <field name="ref"></field>
+                <field name="active"></field>
+                <field name="appointment_time" sum="sum appointment" ></field>
+
+            </tree>
+        </field>
+    </record>
+    <record id="view_hospital_patient_form" model="ir.ui.view">
+        <field name="name">hospital.patient.form</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="alert alert-info text-center o_form_header" role="alert"
+                    attrs="{'invisible' : [('is_birthday' , '=' , False)]}">
+                          <a class="close" data-dismiss="alert" href="#">x</a>
+                        <div>
+                            <strong>Today is birthday</strong>
+                        </div>
+                        <div>Wish <field name="name" readonly="1" /></div>
+                    </div>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                       <div class="oe_title">
+                        <h4>
+                            <label for="ref" string="ref" class="oe_edit_only" />
+                            <field name="ref"></field>
+                        </h4>
+                        <h2>
+                            <label for="name" string="name" class="oe_edit_only" />
+                            <field name="name"></field>
+                        </h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="sequence"></field>
+                            <field name="date_of_birth"></field>
+                            <field name="age"></field>
+                            <field name="appointment_id"></field>
+                        </group>
+                        <group>
+<!--                            #widget='many2many_checkboxes'-->
+                            <field name="gender"
+                                   attrs="{'readonly' : [('age' , '>' , 4)] ,
+                                   'required' : [('age' , '=' , 3)]}" widget="radio"></field>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"></field>
+                            <field name="active" invisible='1'></field>
+                            <field name="appointment_time" ></field>
+                            <field name="is_birthday" ></field>
+                        </group>
+                        <group>
+                            <field name="phone" widget="phone" ></field>
+                            <field name="email" widget="email"></field>
+                            <field name="website" widget="url"></field>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="prescription" name="prescription">
+
+                        </page>
+                        <page string="pharmacy" name="pharmacy">
+
+                        </page>
+                    </notebook>
+                </sheet>
+<!--                chatter-->
+                 <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hospital_patient" model="ir.actions.act_window">
+        <field name="name">patients</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hospital.patient</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                create your first patient
+            </p>
+        </field>
+    </record>
+
+    <record id="view_hospital_patient_search" model="ir.ui.view">
+        <field name="name">hospital.patient.search</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="patient name"
+                       filter_domain="['|',('name','ilike',self),('ref','ilike',self)]"></field>
+                <!--                <field name="age" string="patient age"></field>-->
+                <!--                <field name="gender" string="patient gender"></field>-->
+                <!--                <field name="ref" string="patient reference"></field>-->
+                <filter name="filter_male" string="Male" domain="[('gender' , '=' , 'male')]"></filter>
+                <!--                <separator></separator>-->
+                <filter name="filter_female" string="Female" domain="[('gender' , '=' , 'female')]"></filter>
+<!--                <filter name="filter_age" string="Age" domain="[('age' , '&lt;=' , 5)]"></filter>-->
+                <separator></separator>
+                <filter name="filter_archived" string="Archived" domain="[('active' , '=' , False)]"></filter>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_gender" string="gender" context="{'group_by': 'gender'}"/>
+<!--                    <filter name="group_job" string="Job" domain="[]" context="{'group_by': 'job_id'}"/>-->
+                </group>
+<!--                select="multi" chieckBok on searchpaner-->
+                 <searchpanel>
+                        <field name="gender" string="Gender"  icon="fa-users"  enable_counters="1"/>
+                    </searchpanel>
+            </search>
+        </field>
+    </record>
+
+
+
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="action_room_asset_form" model="ir.ui.view">
+        <field name="name">room.asset.form</field>
+        <field name="model">room.asset</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="clinc_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_room_asset_tree" model="ir.ui.view">
+        <field name="name">room.asset.tree</field>
+        <field name="model">room.asset</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="clinc_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_room_asset" model="ir.actions.act_window">
+        <field name="name">Room</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">room.asset</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="room_asset" name="room" parent="calendar.calendar_menu_config"
+              action="action_room_asset" groups="base.group_user">
+    </menuitem>
+</odoo>

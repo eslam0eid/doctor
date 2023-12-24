@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+patient_rate_id,patient_rate_name,model_patient_rate,base.group_user,1,1,1,1
+asset_room_id,asset_room_name,model_asset_room,base.group_user,1,1,1,1
+room_asset_id,room_asset_name,model_room_asset,base.group_user,1,1,1,1
+asset_room_lines_id,asset_lines_room_name,model_asset_room_lines,base.group_user,1,1,1,1
+service_category_id,service_category_name,model_service_category,base.group_user,1,1,1,1

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+     <record id="account_pay" model="ir.ui.view">
+            <field name="name">account.pay</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                 <field name="ref" position="after">
+                    <field name="meeting_id"   />
+                </field>
+            </field>
+        </record>
+
+      <record id="acc_payment" model="ir.ui.view">
+            <field name="name">acc.payment</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                 <field name="ref" position="after">
+                    <field name="meeting_id"  />
+                </field>
+            </field>
+        </record>
+
+</odoo>

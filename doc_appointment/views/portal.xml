@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="portal_my_home" name="Show Students" inherit_id="portal.portal_my_home">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">clinic</t>
+                <t t-set="url">/my/appointment</t>
+                <t t-set="placeholder_count" t-value="'patients_count'"/>
+            </t>
+        </xpath>
+    </template>
+    <template id="portal_breadcrumbs" inherit_id="portal.portal_breadcrumbs">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'patients_list'" class="breadcrumb-item">clinic</li>
+            <li t-if="page_name == 'patients_form'" class="breadcrumb-item">
+                <a href="/my/appointment">clinic</a>
+                /
+                <span t-out="patient.name"></span>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="patients_appointment_list_view">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+            </t>
+            <div class="container  mt-5">
+                <div class="row" style="display:flex;">
+                    <div class="col-md-6">
+
+                        <table t-call="portal.portal_table">
+
+                            <thead>
+                                <tr style="background-color: #92a8d1;">
+                                    <th/>
+                                    <th>Top Patient</th>
+                                    <th/>
+                                </tr>
+                                <tr class="active" style="background-color: #d5f4e6;">
+                                    <th class="text-center">patient name</th>
+                                    <th class="text-center">order</th>
+                                    <th class="text-center">price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="patients" t-as="patient">
+                                    <tr>
+                                        <td class="text-center">
+                                            <a t-attf-href="/my/appointment/#{patient.id}">
+                                                <t t-out="patient.name"/>
+                                            </a>
+                                        </td>
+                                        <td class="text-center">
+                                            <t t-out="total"/>
+                                        </td>
+
+                                        <td class="text-center">
+                                            <t t-out="patient.price"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6 mt-5">
+                        <table t-call="portal.portal_table">
+                            <thead>
+                                <tr  style="background-color: #92a8d1;">
+                                    <th/>
+                                    <th>Top Clinic</th>
+                                    <th/>
+                                </tr>
+                                <tr class="active" style="background-color: #d5f4e6;">
+                                    <th class="text-center">clinic name</th>
+                                    <th class="text-center">order</th>
+                                    <th class="text-center">price</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <t t-foreach="patients" t-as="patient">
+                                    <tr>
+                                        <td class="text-center">
+                                            <a t-attf-href="/my/appointment/#{patient.id}">
+                                                <t t-out="patient.clinc_id.name"/>
+                                            </a>
+                                        </td>
+                                        <td class="text-center">
+                                            <t t-out="total"/>
+                                        </td>
+
+                                        <td class="text-center">
+                                            <t t-out="clinic_id"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table t-call="portal.portal_table">
+                            <thead>
+                                <tr class="active" style="background-color: #d5f4e6;">
+                                    <th class="text-center">payment reference</th>
+                                    <th class="text-center">patient name</th>
+                                    <th class="text-center">service name</th>
+                                    <th class="text-center">price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="patients" t-as="patient">
+                                    <tr>
+                                        <td class="text-center">
+                                            <a t-attf-href="/my/appointment/#{patient.id}">
+                                                <t t-out="patient.meeting_ids"/>
+                                            </a>
+                                        </td>
+                                        <td class="text-center">
+                                            <t t-out="patient.name"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <t t-out="patient.product_id.name"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <t t-out="patient.price"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </t>
+    </template>
+
+    <template id="patients_appointment_form_view" inherit_id="portal.portal_sidebar">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <div calss="row mt-16">
+                <section style="background-color: #eee;">
+                    <div class="container py-5">
+
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="card mb-4">
+                                    <div class="card-body text-center">
+                                        <h5 class="my-3">
+                                            <t t-out="patient.clinc_id.name"/>
+                                        </h5>
+                                        <p class="text-muted mb-1">
+                                            <t t-out="patient.name"/>
+                                        </p>
+                                        <p class="text-muted mb-4">
+                                            <t t-out="patient.clinc_id.name"/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Full Name</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                    <t t-out="patient.name"/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">clinic name</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                    <t t-out="patient.clinc_id.name"/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">product name</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                    <t t-out="patient.product_id.name"/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">price</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">
+                                                    <t t-out="patient.price"/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container py-5">
+                        <t t-call="portal.message_thread">
+                            <t t-set="object" t-value="patient"/>
+                        </t>
+                    </div>
+                </section>
+
+            </div>
+        </xpath>
+
+    </template>
+
+
+</odoo>

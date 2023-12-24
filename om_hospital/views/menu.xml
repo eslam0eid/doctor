@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <menuitem id="menu_hospital_root"
+              name="hospital"
+              sequence="0"/>
+     <menuitem id="menu_appointment_master"
+              name="Appointment"
+              parent="menu_hospital_root"
+              sequence="10"/>
+    <menuitem id="menu_patient_master"
+              name="patient details"
+              parent="menu_hospital_root"
+              sequence="9"/>
+    <menuitem id="menu_configuration"
+              name="Configurations"
+              parent="menu_hospital_root"
+              sequence="40"/>
+      <menuitem id="menu_hospital"
+              name="patients"
+              action="action_hospital_patient"
+              parent="menu_patient_master"
+              sequence="7"/>
+     <menuitem id="male_menu_hospital"
+              name=" male patients"
+              action="action_hospital_male_patient"
+              parent="menu_patient_master"
+              sequence="2"/>
+       <menuitem id="female_menu_hospital"
+              name=" female patients"
+              action="action_hospital_female_patient"
+              parent="menu_patient_master"
+              sequence="1"/>
+        <menuitem id="menu_patient_tag"
+              name="Tags"
+              action="action_patient_tag"
+              parent="menu_configuration"
+              sequence="44"/>
+     <menuitem id="menu_cancel_appointment"
+              name="cancellaton"
+              action="action_cancel_appointment"
+              parent="menu_appointment_master"
+              sequence="20"/>
+   <menuitem id="menu_appointment"
+              name="Appointments"
+              action="action_hospital_appointment"
+              parent="menu_appointment_master"
+              sequence="1"/>
+    <menuitem id="menu_appointments"
+              name="operation"
+              action="action_hospital_operation"
+              parent="menu_appointment_master"
+              sequence="2"/>
+
+</odoo>

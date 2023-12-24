@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="calendar_event_form_inherit" model="ir.ui.view">
+            <field name="name">Kaizen.calendar_event.form</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="before">
+                    <header>
+                        <button type="object" name="btn_confirm" string="Confirm"
+                                attrs="{'invisible':[('state','=','confirmed')]}" class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                </xpath>
+                <xpath expr="//field[@name='description']" position="after">
+                    <field name="pay_id" string="Payment"/>
+                    <field name="jornal_id" string="jornal"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">booking subject</attribute>
+                </xpath>
+                <xpath expr="//page[@name='page_details']" position="attributes">
+                    <attribute name="string">booking details</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_ids']" position="replace">
+
+                    <field name="patient_id"  placeholder="Select attendees..."
+                           context="{'force_email':True}" domain="[('type','!=','private')]"
+                           class="oe_inline o_calendar_attendees"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="calendar.action_calendar_event" model="ir.actions.act_window">
+            <field name="name">Booking</field>
+        </record>
+    </data>
+</odoo>

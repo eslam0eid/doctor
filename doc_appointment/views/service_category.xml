@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+
+  <record id="action_service_category_form" model="ir.ui.view">
+        <field name="name">service category form</field>
+        <field name="model">service.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_service_category_tree" model="ir.ui.view">
+        <field name="name">service category tree</field>
+        <field name="model">service.category</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+      <record id="action_service_category" model="ir.actions.act_window">
+        <field name="name">service category</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">service.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+        <menuitem id="service_category" name="service category" parent="calendar.calendar_menu_config"
+              action="action_service_category" groups="base.group_user">
+    </menuitem>
+</odoo>
