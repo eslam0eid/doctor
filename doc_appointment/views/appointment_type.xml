@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="appointment_type_form_inherit" model="ir.ui.view">
+            <field name="name">Kaizen.appointment_type.form</field>
+            <field name="model">appointment.type</field>
+            <field name="inherit_id" ref="appointment.appointment_type_view_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='left_details']" position="before">
+                    <group>
+                        <field name="clinc_id"/>
+                        <field name="product_id"/>
+                        <field name="price"/>
+                        <field name="tax_id"/>
+                        <field name="payment_ids" invisible="1"/>
+                        <field name="asset_id" widget="many2many_tags"/>
+                        <field name="room_id" widget="many2many_tags"/>
+                        <field name="service_id"/>
+                    </group>
+                </xpath>
+                <xpath expr="//sheet/div[hasclass('oe_title')]" position="before">
+                    <field name="photo" widget="image" class="oe_avatar" nolabel="1"/>
+                </xpath>
+                <xpath expr="//sheet/group[1]" position="after">
+                    <group>
+                        <field name="service_rt"/>
+                        <field name="about_service"/>
+                    </group>
+                </xpath>
+                <xpath expr="//page[@name='messages']" position="after">
+                    <page string="Customer Rating" name="rate">
+                        <field name="patient_rate_ids" edit="0">
+                            <tree editable="bottom">
+                                <field name="user_id"/>
+                                <field name="rating"/>
+                                <field name="desc"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+        <record id="appointment_type_kanban_inherit" model="ir.ui.view">
+            <field name="name">Kaizen.appointment_type.kanban</field>
+            <field name="model">appointment.type</field>
+            <field name="inherit_id" ref="appointment.appointment_type_view_kanban"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_kanban_global_click')]/div/div[4]/div/div[1]/div[2]/button[hasclass('o_appointment_text_button')]"
+                       position="replace">
+                    <button name="action_calendar_meetings" type="object"
+                            class="o_appointment_text_button text-large text-start ms-2">
+                        booking<br/>scheduled
+                    </button>
+                </xpath>
+                <xpath expr="//div[hasclass('oe_kanban_global_click')]/div/div[4]/div/div[2]/div[2]/button[hasclass('o_appointment_text_button')]"
+                       position="replace">
+                    <button name="action_calendar_events_reporting" type="object"
+                            class="text-large o_appointment_text_button text-start ms-2">
+                        Total booking<br/>(Last 30 Days)
+                    </button>
+                </xpath>
+
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

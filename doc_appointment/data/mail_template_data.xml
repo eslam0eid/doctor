@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="id_print_calender_event" model="ir.actions.report">
+            <field name="name">appointment Type</field>
+            <field name="model">calendar.event</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">doc_appointment.id_print_appointment_type_template</field>
+            <field name="report_file">appointment Type</field>
+            <field name="print_report_name">'Appointment Type - %s' % (object.name)
+            </field>
+            <field name="binding_model_id" ref="calendar.model_calendar_event"/>
+            <field name="binding_type">report</field>
+        </record>
+        <template id="id_print_appointment_type_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.basic_layout" style="font-family: serif">
+                        <br/>
+                        <div class="header">
+                        <div valign="middle">
+                            <span style="font-size: 20px; font-weight: bold;">patient account : </span>
+                            <span style="font-size: 20px; font-weight: bold;">
+                                <t t-out="o.partner_ids.email"></t>
+                                <br/>
+                            </span>
+                            <div>
+                                Dear <t t-out="o.appointment_type_id.staff_user_ids.name"></t>,
+                                <br/>
+                                <br/>
+                                <p>You have made an appointment at the clinic
+                                   ( <t t-out="o.appointment_type_id.clinc_id.name"/>)
+                                </p>
+                                <p>starting at : <t t-out="o.start"/> </p>
+                                <p>starting at : <t t-out="o.stop"/> </p>
+
+                            </div>
+                        </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+
+                            <ul>
+                                <li>name :
+                                    <t t-out="o.appointment_type_id.staff_user_ids.name"></t>
+                                </li>
+                                <br/>
+                                <li>email :
+                                    <t t-out="o.partner_ids.email"></t>
+                                </li>
+                                <br/>
+                                <li>clinic :
+                                    <t t-esc="o.appointment_type_id.clinc_id.name"></t>
+                                </li>
+                                <br/>
+                                <li>product :
+                                    <t t-out="o.appointment_type_id.product_id.name"></t>
+                                </li>
+                                <br/>
+                                <li>price :
+                                    <t t-out="o.appointment_type_id.price"></t>
+                                </li>
+                                <br/>
+                                <li>allow cancelling : until <t
+                                        t-out="o.appointment_type_id.min_cancellation_hours"></t> hours before
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="text-left">
+                            <p> <t t-out="o.description"/></p>
+                        </div>
+                        <br/>
+                        <div class="footer">
+                            <div class="text-center" style="text-align:center;">
+                                <p>powered by doctorek</p>
+                                <p>All rights reserved</p>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+        <!--        <record id="appointment_confirm" model="mail.template">-->
+        <!--            <field name="name">appointment confirm</field>-->
+        <!--            <field name="model_id" ref="doc_appointment.model_calendar_event"/>-->
+        <!--            <field name="email_from">{{ user.email }}</field>-->
+        <!--            <field name="subject">confirm appointment</field>-->
+        <!--            <field name="email_to">{{ object.partner_ids[0].name  }}</field>-->
+        <!--            <field name="report_template" ref="account.action_report_payment_receipt"/>-->
+        <!--&lt;!&ndash;            <field name="report_name">{{ (object.partner_ids[0].name)}}</field>&ndash;&gt;-->
+        <!--            <field name="description">send email to patient to confirm appointment</field>-->
+        <!--            <field name="body_html" type="html">-->
+        <!--                <table border="0" cellpadding="0" cellspacing="0"-->
+        <!--                       style="padding-top: 16px; background-color: #FFFFFF; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;">-->
+        <!--                    <tr>-->
+        <!--                        <td align="left" style="padding-left : 8px">-->
+        <!--                            <table border="0" cellpadding="0" cellspacing="0" width="590"-->
+        <!--                                   style="padding: 16px; background-color: #FFFFFF; color: #454748; border-collapse:separate;">-->
+        <!--                                <tbody>-->
+        <!--                                    &lt;!&ndash; HEADER &ndash;&gt;-->
+        <!--                                    <tr>-->
+        <!--                                        <td align="center" style="min-width: 590px;">-->
+        <!--                                            <table border="0" cellpadding="0" cellspacing="0" width="590"-->
+        <!--                                                   style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">-->
+        <!--                                                <tr>-->
+        <!--                                                            <td valign="middle">-->
+        <!--                                                                <span style="font-size: 10px;">Your Account</span>-->
+        <!--                                                                <br/>-->
+        <!--                                                                <span style="font-size: 20px; font-weight: bold;">-->
+        <!--                                                                    <t t-out="object.partner_ids[0].name"></t>-->
+        <!--                                                                </span>-->
+        <!--                                                            </td>-->
+        <!--                                                </tr>-->
+        <!--                                            </table>-->
+        <!--                                        </td>-->
+        <!--                                    </tr>-->
+
+        <!--                                    <tr>-->
+        <!--                                        <td align="left" style="min-width: 590px;">-->
+        <!--                                            <table border="0" cellpadding="0" cellspacing="0" width="590"-->
+        <!--                                                   style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">-->
+        <!--                                                <tr>-->
+        <!--                                                    <td valign="top" style="font-size: 13px;">-->
+        <!--                                                                <div>-->
+
+        <!--                                                                    Dear <t t-out="object.appointment_type_id.staff_user_ids.name"></t>,-->
+        <!--                                                                    <br/>-->
+        <!--                                                                    <p>You have made an appointment at the clinic <t t-out="object.appointment_type_id.clinc_id.name" /></p>-->
+        <!--                                                                    <br/>-->
+        <!--                                                            <ul>-->
+        <!--                                                                <li>name :    <t t-out="object.appointment_type_id.staff_user_ids.name"></t></li>-->
+        <!--                                                                <li>email :   <t t-out="object.partner_ids[0].name"></t></li>-->
+        <!--                                                                <li>clinic :  <t t-esc="object.appointment_type_id.clinc_id.name"></t></li>-->
+        <!--                                                                <li>product : <t t-out="object.appointment_type_id.product_id.name"></t></li>-->
+        <!--                                                                <li>price :   <t t-out="object.appointment_type_id.price"></t></li>-->
+        <!--                                                                <li>allow cancelling :  until <t t-out="object.appointment_type_id.min_cancellation_hours"></t> hours before</li>-->
+        <!--                                                            </ul>-->
+        <!--                                                            <br/>-->
+        <!--                                                            <br/>-->
+        <!--                                                            Thanks,-->
+        <!--                                                        </div>-->
+        <!--                                                    </td>-->
+        <!--                                                </tr>-->
+
+        <!--                                            </table>-->
+        <!--                                        </td>-->
+        <!--                                    </tr>-->
+        <!--                                </tbody>-->
+        <!--                            </table>-->
+        <!--                        </td>-->
+        <!--                    </tr>-->
+
+
+        <!--                </table>-->
+        <!--            </field>-->
+
+        <!--        </record>-->
+
+    </data>
+</odoo>

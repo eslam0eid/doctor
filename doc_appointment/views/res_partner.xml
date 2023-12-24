@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_inherit" model="ir.ui.view">
+        <field name="name">res_partner.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <group>
+                    <field name="clinic" string="Is Clinic" widget="boolean_toggle"/>
+                    <field name="about_clinic" attrs="{'invisible' : [('clinic' , '=' , False)]}" />
+                </group>
+            </field>
+            <page name="internal_notes" position="after">
+                <page string="Clinic Information" attrs="{'invisible': [('clinic','=',False)]}">
+                    <group>
+                        <field name="cover"/>
+                        <field name="experience_years"/>
+                        <field name="expertise"/>
+                    </group>
+                </page>
+            </page>
+
+
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hospital_operation_form" model="ir.ui.view">
+         <field name="name">operations</field>
+        <field name="model">hospital.operation</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                    <group>
+                        <field name="operation_name"></field>
+                        <field name="doctor_id" widget="selection"></field>
+                        <field name="reference_record" ></field>
+                    </group>
+                        <gropu></gropu>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="hospital_operation_tree" model="ir.ui.view">
+         <field name="name">operations</field>
+        <field name="model">hospital.operation</field>
+        <field name="arch" type="xml">
+            <tree>
+
+                        <field name="operation_name"></field>
+                        <field name="doctor_id"></field>
+                        <field name="reference_record"></field>
+
+            </tree>
+        </field>
+    </record>
+
+<record id="action_hospital_operation" model="ir.actions.act_window">
+        <field name="name">operations</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hospital.operation</field>
+        <field name="view_mode">tree,form,activity</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                create your first operations
+            </p>
+        </field>
+</record>
+</odoo>

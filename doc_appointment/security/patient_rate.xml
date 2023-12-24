@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="patient_rate" model="ir.rule">
+            <field name="name">All Calendar Event for employees</field>
+            <field name="model_id" ref="model_calendar_event"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field eval="[(4, ref('base.group_user'))]" name="groups"/>
+        </record>
+
+<!--          <record id="asset_room" model="ir.rule">-->
+<!--            <field name="name">asset and room</field>-->
+<!--            <field name="model_id" ref="model_calendar_event"/>-->
+<!--            <field name="domain_force">[(1, '=', 1)]</field>-->
+<!--            <field eval="[(4, ref('base.group_user'))]" name="groups"/>-->
+<!--        </record>-->
+
+    </data>
+</odoo>
